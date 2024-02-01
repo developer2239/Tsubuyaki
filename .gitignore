@@ -1,2 +1,5 @@
 # 仮想環境フォルダ
 /tsubuyaki_venv/*
+
+# python キャッシュファイル
+**/__pycache__/**
