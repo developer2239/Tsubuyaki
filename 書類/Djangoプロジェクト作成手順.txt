@@ -1,0 +1,26 @@
+【仮想環境】
+仮想環境を作成（任意のディレクトリに作成）
+python -m venv tsubuyaki_venv
+
+仮想環境を有効化
+tsubuyaki_venv\Scripts\activate
+
+【Djangoプロジェクト作成】
+pipをアップデートする
+pip install --upgrade pip
+
+仮想環境内にパッケージdjangoをインストール
+pip install django
+
+MySQL用ドライバをインストール
+pip install mysqlclient
+
+djangoプロジェクトTsubuyakiを作成
+django-admin startproject tsubuyaki
+
+【動作確認】
+Djangoプロジェクト配下にて、manage.pyを起動
+python manage.py runserver
+
+http://127.0.0.1:8000/にブラウザからアクセスして
+Djangoのチュートリアルページが出ればOK
