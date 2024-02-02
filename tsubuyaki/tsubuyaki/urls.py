@@ -22,5 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # ログイン
     path('',v.login),
-    path('login/',v.login)
+    path('login/',v.login),
+    # サインアップ
+    path('signup/',v.signup)
 ]
