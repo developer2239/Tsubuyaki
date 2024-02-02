@@ -15,3 +15,7 @@ def signup(request):
 # つぶやき・ポスト一覧画面
 def posts(request):
     return render(request,"posts.html")
+
+# プロフィール画面
+def profile(request):
+    return render(request,"profile.html")

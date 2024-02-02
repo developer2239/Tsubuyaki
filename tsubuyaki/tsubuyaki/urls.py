@@ -27,4 +27,6 @@ urlpatterns = [
     path('signup/',v.signup),
     # ポスト・つぶやき一覧画面
     path('posts/',v.posts),
+    # プロフィール画面
+    path('profile/',v.profile),
 ]
