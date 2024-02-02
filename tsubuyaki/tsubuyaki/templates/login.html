@@ -46,7 +46,8 @@
             <div class="title">
                 つぶやきアプリ
             </div>
-            <form class="login_form" action="/" method="POST">
+            <form class="login_form" action="/login/" method="POST">
+                {% csrf_token %}
                 <div class="account_id_label">
                     ID
                 </div>
