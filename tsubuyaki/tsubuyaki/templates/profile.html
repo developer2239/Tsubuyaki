@@ -57,6 +57,43 @@
             width: 60%;
             max-width: 350px;
         }
+        /* pop-up window */
+        .tsubuyaki_window {
+            display: none;
+            flex-flow: column;
+            justify-content: center;
+            gap:30px;
+            width: 350px;
+            height: 350px;
+            position: fixed;
+            inset: 0;
+            background-color: gray;
+            margin: auto;
+        }
+        .close_tsubuyaki_window_button {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+        .my_info {
+            text-align: center;
+        }
+        .tsubuyaki_text{
+            text-align: center;
+        }
+        .tsubuyaki_text_input {
+            width: 300px;
+            height: 175px;
+        }
+        .tsubuyaki_submit {
+            position: relative;
+        }
+        .tsubuyaki_submit_input {
+            position: absolute;
+            right: 0;
+            margin: 10px 10px 0 0;
+        }
+
     </style>
 </head>
 <body>
@@ -70,7 +107,7 @@
             </div>
         </div>
         <div class="contents">
-            <div class="tsubuyaki_button">
+            <div id="tsubuyaki_button" class="tsubuyaki_button">
                 つぶやく
             </div>
             <div class="post">
@@ -150,5 +187,35 @@
             </div>
         </div>
     </div>
+    <!-- Pop-up window -->
+    <div id="tsubuyaki_window" class="tsubuyaki_window">
+        <div class="my_info">
+            ユーザー名1@userId00001
+            <div id="close_tsubuyaki_window_button" class="close_tsubuyaki_window_button">
+                ×
+            </div>
+        </div>
+        <form action="/post" method="POST">
+            {% csrf_token %}
+            <div class="tsubuyaki_text">
+                <input class="tsubuyaki_text_input" type="text" name="content">
+            </div>
+            <div class="tsubuyaki_submit">
+                <input class="tsubuyaki_submit_input" type="submit" value="つぶやく">
+            </div>
+        </form>
+    </div>
+    <!-- Pop-up window -->
+    <script>
+        const tsubuyakiButton = document.getElementById('tsubuyaki_button');
+        const tsubuyakiWindow = document.getElementById('tsubuyaki_window');
+        const closeTsubuyakiWindowButton = document.getElementById('close_tsubuyaki_window_button')
+        tsubuyakiButton.addEventListener('click', function() {
+            tsubuyakiWindow.style.display = 'flex';
+        });
+        closeTsubuyakiWindowButton.addEventListener('click', function() {
+            tsubuyakiWindow.style.display = 'none';
+        });
+    </script>
 </body>
 </html>
