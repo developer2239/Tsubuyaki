@@ -19,3 +19,7 @@ def posts(request):
 # プロフィール画面
 def profile(request):
     return render(request,"profile.html")
+
+# アカウントカスタム画面
+def custom(request):
+    return render(request,"delete.html")
