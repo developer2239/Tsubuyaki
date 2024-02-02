@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>つぶやきアプリログイン</title>
+    <style>
+        body {
+            height: 100%;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right,#e66465, #9198e5);
+        }
+        .wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .panel {
+            position: relative;
+            background-color: white;
+            margin-top: 150px;
+            padding: 30px 10px 30px 20px;
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+        }
+        .login_form {
+            margin-top: 15px;
+        }
+        .login_button {
+            margin-top: 15px;
+            position: absolute;
+            right: 15px;
+        }
+        .create_account_link {
+            position: absolute;
+            bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="panel">
+            <div class="title">
+                つぶやきアプリ
+            </div>
+            <form class="login_form" action="/" method="POST">
+                <div class="account_id_label">
+                    ID
+                </div>
+                <div class="account_id_input">
+                    <input id="account_id"  name="account_id" type="text">
+                </div>
+                <div class="password_label">
+                    PW
+                </div>
+                <div class="password_input">
+                    <input id="password"  name="password" type="text">
+                </div>
+                <input class="login_button" type="submit" value="ログイン">
+                <div class="create_account_link">
+                    <a href="/signup/">アカウント作成はこちら</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
