@@ -16,7 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+import tsubuyaki.views as v
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # ログイン
+    path('',v.login),
+    path('login/',v.login)
 ]
