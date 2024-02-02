@@ -24,5 +24,7 @@ urlpatterns = [
     path('',v.login),
     path('login/',v.login),
     # サインアップ
-    path('signup/',v.signup)
+    path('signup/',v.signup),
+    # ポスト・つぶやき一覧画面
+    path('posts/',v.posts),
 ]
