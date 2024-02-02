@@ -29,4 +29,6 @@ urlpatterns = [
     path('posts/',v.posts),
     # プロフィール画面
     path('profile/',v.profile),
+    # アカウントカスタム画面
+    path('custom/',v.custom)
 ]
