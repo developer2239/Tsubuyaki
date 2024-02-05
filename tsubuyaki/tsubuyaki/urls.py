@@ -30,5 +30,9 @@ urlpatterns = [
     # プロフィール画面
     path('profile/',v.profile),
     # アカウントカスタム画面
-    path('custom/',v.custom)
+    path('custom/',v.custom),
+
+    # つぶやき追加ボタン、サブミット
+    path('post/',v.post)
+    
 ]

@@ -22,4 +22,5 @@ create table post (
   , created_at DATETIME default CURRENT_TIMESTAMP not null
   , updated_at DATETIME default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP not null
   , primary key (post_id)
+  , FOREIGN KEY (account_id) REFERENCES account (account_id)
 );
