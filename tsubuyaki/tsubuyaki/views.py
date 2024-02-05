@@ -22,6 +22,12 @@ def login(request):
             return redirect("/posts/")
         else:
             return redirect("/login/")
+        
+# ログアウト
+def logout(request):
+    # セッション破棄
+    request.session.clear() 
+    return redirect("/login/")
 
 # 新規アカウント作成画面
 def signup(request):
@@ -63,6 +69,14 @@ def post(request):
         account_id = account.account_id
         Post.objects.create(content = content, account_id = account_id)
         return redirect("/posts/")
+    
+# つぶやき削除
+def delete(request):
+    post_id = request.GET.get("post_id")
+    # レコードの削除
+    post = Post.objects.get(post_id = post_id)
+    post.delete()
+    return redirect("/profile/")
 
 # アカウントカスタム画面
 def custom(request):
