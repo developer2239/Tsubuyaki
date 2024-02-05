@@ -40,7 +40,7 @@ def signup(request):
 
 # つぶやき・ポスト一覧画面
 def posts(request):
-    posts = Post.objects.all()
+    posts = Post.objects.all().order_by("-created_at") 
     params = {
         "posts" : posts
     }
@@ -48,7 +48,12 @@ def posts(request):
 
 # プロフィール画面
 def profile(request):
-    return render(request,"profile.html")
+    account = request.session["account"]
+    posts = Post.objects.filter(account_id = account.account_id).order_by("created_at")
+    params = {
+        "posts" : posts,
+    }
+    return render(request,"profile.html",params)
 
 # つぶやき追加
 def post(request):
