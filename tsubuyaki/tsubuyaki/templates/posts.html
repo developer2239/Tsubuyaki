@@ -33,8 +33,11 @@
             width: 70%;
             max-width: 400px;
             margin: 0 auto;
+            margin-top: 10px;
+            padding: 10px;
             background-color: white;
-            border: 1px solid gray;
+            border: 1px solid white;
+            border-radius: 15px;
         }
         .user_info {
             width: 60%;
@@ -47,6 +50,7 @@
     </style>
 </head>
 <body>
+    {{ request.session.account.name }} ログイン中
     <div class="wrapper">
         <div class="header">
             <div class="title">
@@ -59,56 +63,14 @@
             </a>
         </div>
         <div class="contents">
+            {% for post in posts%}
             <div class="post">
-                <div class="user_info">ユーザー名1@userId00001
+                <div class="user_info">{{ post.account.name }}@{{ post.account.id}}
                 </div>
-                <div class="post_text">
-                    てすと<br>
-                    てすと<br>
-                    てすと<br>
-                    てすと<br>
-                    てすと<br>
-                    てすと<br>
-                    てすと<br>
-                    てすと<br>
-                    てすと<br>
-                </div>
+                <div class="post_text">{{ post.content }}</div>
+                <div class="post_date">{{ post.created_at }}</div>
             </div>
-            <div class="post">
-                <div class="user_info">ユーザー名1@userId00001
-                </div>
-                <div class="post_text">ポスト本文１</div>
-            </div>
-            <div class="post">
-                <div class="user_info">ユーザー名1@userId00001
-                </div>
-                <div class="post_text">ポスト本文１</div>
-            </div>
-            <div class="post">
-                <div class="user_info">ユーザー名1@userId00001
-                </div>
-                <div class="post_text">ポスト本文１</div>
-            </div>
-            <div class="post">
-                <div class="user_info">ユーザー名1@userId00001
-                </div>
-                <div class="post_text">ポスト本文１</div>
-            </div>
-            <div class="post">
-                <div class="user_info">ユーザー名1@userId00001
-                </div>
-                <div class="post_text">ポスト本文１</div>
-            </div>
-            <div class="post">
-                <div class="user_info">ユーザー名1@userId00001
-                </div>
-                <div class="post_text">ポスト本文１</div>
-            </div>
-            <div class="post">
-                <div class="user_info">ユーザー名1@userId00001
-                </div>
-                <div class="post_text">ポスト本文１</div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </body>

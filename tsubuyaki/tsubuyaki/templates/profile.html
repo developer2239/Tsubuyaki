@@ -112,6 +112,14 @@
             <div id="tsubuyaki_button" class="tsubuyaki_button">
                 つぶやく
             </div>
+            {% for post in posts%}
+            <div class="post">
+                <div class="user_info">{{ post.account.name }}@{{ post.account.id}}
+                </div>
+                <div class="post_text">{{ post.content }}</div>
+                <div class="post_date">{{ post.created_at }}</div>
+            </div>
+            {% endfor %}
             <div class="post">
                 <div class="user_info">
                     ユーザー名1@userId00001
@@ -197,10 +205,10 @@
                 ×
             </div>
         </div>
-        <form action="/post" method="POST">
+        <form action="/post/" method="POST">
             {% csrf_token %}
             <div class="tsubuyaki_text">
-                <input class="tsubuyaki_text_input" type="text" name="content">
+                <input class="tsubuyaki_text_input" type="text" id="content" name="content">
             </div>
             <div class="tsubuyaki_submit">
                 <input class="tsubuyaki_submit_input" type="submit" value="つぶやく">
