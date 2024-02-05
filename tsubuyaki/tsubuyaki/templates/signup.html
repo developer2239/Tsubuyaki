@@ -46,18 +46,19 @@
             <div class="title">
                 アカウント登録
             </div>
-            <form class="login_form" action="/" method="POST">
+            <form class="login_form" action="/signup/" method="POST">
+                {% csrf_token %}
                 <div class="name_label">
                     ユーザ名
                 </div>
                 <div class="name_input">
                     <input id="name"  name="name" type="text">
                 </div>
-                <div class="account_id_label">
+                <div class="id_label">
                     ID
                 </div>
-                <div class="account_id_input">
-                    <input id="account_id"  name="account_id" type="text">
+                <div class="id_input">
+                    <input id="id"  name="id" type="text">
                 </div>
                 <div class="password_label">
                     PW
