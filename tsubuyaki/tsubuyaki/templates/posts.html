@@ -25,6 +25,14 @@
             border-radius: 10px;
             color: white;
         }
+        .tsubuyaki_button {
+            width: 70px;
+            padding: 5px;
+            border: 1px solid white;
+            border-radius: 10px;
+            color: white;
+            margin: 15px auto;
+        }
         .contents {
             margin-top: 30px;
             margin-bottom:60px;
@@ -51,6 +59,8 @@
 </head>
 <body>
     {{ request.session.account.name }} ログイン中
+    <br>
+    <a href="/logout/">ログアウト</a>
     <div class="wrapper">
         <div class="header">
             <div class="title">
@@ -63,6 +73,9 @@
             </a>
         </div>
         <div class="contents">
+            <div id="tsubuyaki_button" class="tsubuyaki_button">
+                つぶやく
+            </div>
             {% for post in posts%}
             <div class="post">
                 <div class="user_info">{{ post.account.name }}@{{ post.account.id}}

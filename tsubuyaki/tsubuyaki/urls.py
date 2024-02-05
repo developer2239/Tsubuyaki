@@ -23,6 +23,8 @@ urlpatterns = [
     # ログイン
     path('',v.login),
     path('login/',v.login),
+    # ログアウト
+    path('logout/',v.logout),
     # サインアップ
     path('signup/',v.signup),
     # ポスト・つぶやき一覧画面
@@ -33,6 +35,8 @@ urlpatterns = [
     path('custom/',v.custom),
 
     # つぶやき追加ボタン、サブミット
-    path('post/',v.post)
+    path('post/',v.post),
+    # つぶやき×ボタン、つぶやき削除
+    path('delete/',v.delete)
     
 ]
