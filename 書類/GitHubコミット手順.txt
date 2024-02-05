@@ -56,6 +56,13 @@ git merge origin/main
 ※ fetch→mergeを一括でやる
 git pull origin main
 
+####################
+### ロールバック ###
+####################
+
+# 最後のコミットを元に戻す（ステージングはそのまま）
+git reset --soft HEAD^
+
 
 
 
