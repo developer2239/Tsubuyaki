@@ -189,7 +189,7 @@
                     </div>
                     {% endif %}
                 </div>
-                <div class="post_text">{{ post.content }}</div>
+                <div class="post_text">{{ post.content | linebreaksbr }}</div>
                 <div class="post_date">{{ post.created_at|date:"Y年n月j日 H時i分s秒" }}</div>
             </div>
             {% endfor %}
