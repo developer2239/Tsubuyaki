@@ -1,4 +1,5 @@
 from hashlib import sha256
+from django.db import IntegrityError
 from django.shortcuts import render
 from django.shortcuts import redirect
 from tsubuyaki.models.account import Account
@@ -40,7 +41,12 @@ def signup(request):
         password = request.POST.get("password")
         # パスワードのハッシュ化
         hashed_password = sha256(password.encode()).hexdigest()
-        Account.objects.create(name = name, id = id, password = hashed_password)
+        try:
+            Account.objects.create(name = name, id = id, password = hashed_password)
+        except IntegrityError:
+            errmsg = str(id) + "は既に使用されています。他のIDを選択してください。"
+            return redirect("/signup/?errmsg=" + errmsg)
+            
         return redirect("/login/")
 
 
