@@ -70,7 +70,7 @@ def profile(request):
     account_id = request.GET.get("account_id")
     if  account_id is None:
         account_id = my_account.account_id
-        account = my_account
+        account = updated
     else:
         showed_account = Account.objects.get(account_id = account_id)
         account_id = showed_account.account_id
