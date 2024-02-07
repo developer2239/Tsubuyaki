@@ -37,6 +37,9 @@ urlpatterns = [
     # つぶやき追加ボタン、サブミット
     path('post/',v.post),
     # つぶやき×ボタン、つぶやき削除
-    path('delete/',v.delete)
+    path('delete/',v.delete),
+
+    # プロフィール変更
+    path('profile/edit/',v.editProfile)
     
 ]

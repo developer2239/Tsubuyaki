@@ -10,6 +10,7 @@ create table account (
   , id VARCHAR(10) not null
   , name VARCHAR(10) not null
   , password VARCHAR(256) not null
+  , profile VARCHAR(50)
   , created_at DATETIME default CURRENT_TIMESTAMP not null
   , updated_at DATETIME default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP not null
   , primary key (account_id,id)
