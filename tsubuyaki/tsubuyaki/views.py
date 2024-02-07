@@ -77,7 +77,7 @@ def profile(request):
         account = showed_account
 
     # ユーザが投稿した呟きのみをフィルタリングする
-    posts = Post.objects.filter(account_id = account_id).order_by("created_at")
+    posts = Post.objects.filter(account_id = account_id).order_by("-created_at")
     params = {
         "posts" : posts,
         "account" :  account
