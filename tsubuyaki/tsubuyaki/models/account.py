@@ -12,6 +12,7 @@ class Account(models.Model):
     id = models.CharField(primary_key = True, max_length = 10)
     name = models.CharField(max_length = 10)
     password = models.CharField(max_length = 256)
+    profile = models.CharField(max_length = 50)
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
 
