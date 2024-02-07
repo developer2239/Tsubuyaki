@@ -147,7 +147,7 @@
         <form action="/post/" method="POST">
             {% csrf_token %}
             <div class="tsubuyaki_text">
-                <input class="tsubuyaki_text_input" type="text" id="content" name="content">
+                <textarea class="tsubuyaki_text_input" id="content" name="content"></textarea>
             </div>
             <div class="tsubuyaki_submit">
                 <input class="tsubuyaki_submit_input" type="submit" value="つぶやく">
