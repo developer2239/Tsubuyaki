@@ -25,14 +25,6 @@
             border-radius: 10px;
             color: white;
         }
-        .tsubuyaki_button {
-            width: 70px;
-            padding: 5px;
-            border: 1px solid white;
-            border-radius: 10px;
-            color: white;
-            margin: 15px auto;
-        }
         .contents {
             margin-top: 30px;
             margin-bottom:60px;
@@ -50,10 +42,16 @@
         .user_info {
             width: 60%;
             max-width:350px;
+            font-size:12px;
+            color: #445256;
         }
         .post_text {
             width: 60%;
             max-width: 350px;
+        }
+        .post_date {
+            font-size:12px;
+            color: #445256;
         }
     </style>
 </head>
@@ -73,15 +71,12 @@
             </a>
         </div>
         <div class="contents">
-            <div id="tsubuyaki_button" class="tsubuyaki_button">
-                つぶやく
-            </div>
             {% for post in posts%}
             <div class="post">
                 <div class="user_info">{{ post.account.name }}@{{ post.account.id}}
                 </div>
                 <div class="post_text">{{ post.content }}</div>
-                <div class="post_date">{{ post.created_at }}</div>
+                <div class="post_date">{{ post.created_at|date:"Y/n/j H:i:s" }}</div>
             </div>
             {% endfor %}
         </div>
