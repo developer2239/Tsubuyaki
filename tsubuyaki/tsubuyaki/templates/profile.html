@@ -24,6 +24,7 @@
             border: 1px solid white;
             border-radius: 10px;
             color: white;
+            cursor: pointer;
         }
         .tsubuyaki_button {
             width: 70px;
@@ -32,6 +33,7 @@
             border-radius: 10px;
             color: white;
             margin: 15px auto;
+            cursor: pointer;
         }
         .contents {
             margin-bottom:60px;
@@ -57,6 +59,24 @@
             position: absolute;
             top: 0;
             right: 0;
+        }
+        .profile_panel{
+            width: 400px;
+            padding: 5px;
+            border: 1px solid black;
+            border-radius: 10px;
+            color: black;
+            margin: 15px auto;
+            cursor: pointer;
+        }
+        .profile_name{
+            font-weight: bold;
+        }
+        .profile_id {
+            font-size: 12px;
+        }
+        .profile_since {
+            font-size: 12px;
         }
         .post_date {
             font-size:12px;
@@ -110,13 +130,22 @@
                     つぶやきアプリ
                 </a>
             </div>
-            <a href="/custom/">
-                <div class="profile_button">
-                    カスタム
-                </div>
-            </a>
+            <div class="profile_button" onclick="location.href='/custom/'" >
+                カスタム
+            </div>
         </div>
         <div class="contents">
+            <div class="profile_panel">
+                <div class="profile_name">
+                    {{ request.session.account.name }}
+                </div>
+                <div class="profile_id">
+                    @{{ request.session.account.id }}
+                </div>
+                <div class="profile_since">
+                    {{ request.session.account.created_at |date:"Y年n月j日"}}からサービスを利用しています
+                </div>
+            </div>
             <div id="tsubuyaki_button" class="tsubuyaki_button">
                 つぶやく
             </div>
@@ -128,7 +157,7 @@
                     </div>
                 </div>
                 <div class="post_text">{{ post.content }}</div>
-                <div class="post_date">{{ post.created_at }}</div>
+                <div class="post_date">{{ post.created_at|date:"Y年n月j日 H時i分s秒" }}</div>
             </div>
             {% endfor %}
         </div>
