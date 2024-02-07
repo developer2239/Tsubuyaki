@@ -61,18 +61,30 @@
             right: 0;
         }
         .profile_panel{
-            width: 400px;
+            width: 70%;
+            max-width: 400px;
             padding: 5px;
             border: 1px solid black;
             border-radius: 10px;
             color: black;
             margin: 15px auto;
-            cursor: pointer;
+        }
+        .profile_header{
+            display: flex;
         }
         .profile_name{
             font-weight: bold;
+            width: calc(100% - 25px);
+        }
+        .profile_edit_button {
+            width: 25px;
+            font-size: 12px;
+            cursor: pointer;
         }
         .profile_id {
+            font-size: 12px;
+        }
+        .profile_profile {
             font-size: 12px;
         }
         .profile_since {
@@ -83,7 +95,7 @@
             color: #445256;
         }
         /* pop-up window */
-        .tsubuyaki_window {
+        .popup_window {
             display: none;
             flex-flow: column;
             justify-content: center;
@@ -92,9 +104,10 @@
             height: 350px;
             position: fixed;
             inset: 0;
-            background-color: gray;
+            background-color: rgb(196, 194, 194);
             margin: auto;
             border-radius: 15px;
+            border: 1px solid rgb(196, 194, 194);
         }
         .close_tsubuyaki_window_button {
             position: absolute;
@@ -136,25 +149,45 @@
         </div>
         <div class="contents">
             <div class="profile_panel">
-                <div class="profile_name">
-                    {{ request.session.account.name }}
+                <div class="profile_header">
+                    <div class="profile_name">
+                        {{ account.name }}
+                    </div>
+                    {% if request.session.account.account_id == account.account_id %}
+                    <div id="profile_edit_button" class="profile_edit_button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                          </svg>
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="profile_id">
-                    @{{ request.session.account.id }}
+                    @{{ account.id }}
+                </div>
+                <div class="profile_profile">
+                    {{ account.profile }}
                 </div>
                 <div class="profile_since">
-                    {{ request.session.account.created_at |date:"Y年n月j日"}}からサービスを利用しています
+                    {{ account.created_at |date:"Y年n月j日"}}からサービスを利用しています
                 </div>
             </div>
+            {% if request.session.account.account_id == account.account_id %}
             <div id="tsubuyaki_button" class="tsubuyaki_button">
                 つぶやく
             </div>
+            {% endif %}
             {% for post in posts%}
             <div class="post">
-                <div class="user_info">{{ post.account.name }}@{{ post.account.id}}
+                <div class="user_info">
+                    <div class="user_info_name_and_id" >
+                        {{ post.account.name }}@{{ post.account.id}}
+                    </div>
+                    {% if request.session.account.account_id == account.account_id %}
                     <div id="delete_post_button" class="delete_post_button">
                         <a href="/delete?post_id={{ post.post_id }}">×</a>
                     </div>
+                    {% endif %}
                 </div>
                 <div class="post_text">{{ post.content }}</div>
                 <div class="post_date">{{ post.created_at|date:"Y年n月j日 H時i分s秒" }}</div>
@@ -163,7 +196,8 @@
         </div>
     </div>
     <!-- Pop-up window -->
-    <div id="tsubuyaki_window" class="tsubuyaki_window">
+    <!-- つぶやきウィンドウ -->
+    <div id="tsubuyaki_window" class="popup_window">
         <div class="my_info">
             {{ request.session.account.name }}@{{ request.session.account.id }}
             <div id="close_tsubuyaki_window_button" class="close_tsubuyaki_window_button">
@@ -177,6 +211,21 @@
             </div>
             <div class="tsubuyaki_submit">
                 <input class="tsubuyaki_submit_input" type="submit" value="つぶやく">
+            </div>
+        </form>
+    </div>
+    <!-- プロフィール編集 -->
+    <div id="edit_profile_window" class="popup_window">
+        <div id="close_edit_profile_window_button" class="close_tsubuyaki_window_button">
+            ×
+        </div>
+        <form action="/profile/edit/" method="POST">
+            {% csrf_token %}
+            <div class="tsubuyaki_text">
+                <textarea class="tsubuyaki_text_input" id="profile" name="profile"></textarea>
+            </div>
+            <div class="tsubuyaki_submit">
+                <input class="tsubuyaki_submit_input" type="submit" value="自己紹介文を変更">
             </div>
         </form>
     </div>
@@ -201,6 +250,18 @@
                 window.alert("つぶやきを削除しました")
             } 
         });
+
+        // プロフィール変更のポップアップウィンドウ
+        const profileEditButton = document.getElementById('profile_edit_button');
+        const profileEditWindow = document.getElementById('edit_profile_window');
+        const closeEditProfileWindowButton = document.getElementById('close_edit_profile_window_button')
+        profileEditButton.addEventListener('click', function() {
+            profileEditWindow.style.display = 'flex';
+        });
+        closeEditProfileWindowButton.addEventListener('click', function() {
+            profileEditWindow.style.display = 'none';
+        });
+
     </script>
 </body>
 </html>

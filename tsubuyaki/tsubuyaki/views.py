@@ -54,10 +54,27 @@ def posts(request):
 
 # プロフィール画面
 def profile(request):
-    account = request.session["account"]
-    posts = Post.objects.filter(account_id = account.account_id).order_by("created_at")
+
+    # セッションのアカウント情報を更新する
+    my_account = request.session["account"]
+    updated = Account.objects.get(id = my_account.id)
+    request.session["account"] = updated
+
+    # ユーザIDパラメータの取得
+    account_id = request.GET.get("account_id")
+    if  account_id is None:
+        account_id = my_account.account_id
+        account = my_account
+    else:
+        showed_account = Account.objects.get(account_id = account_id)
+        account_id = showed_account.account_id
+        account = showed_account
+
+    # ユーザが投稿した呟きのみをフィルタリングする
+    posts = Post.objects.filter(account_id = account_id).order_by("created_at")
     params = {
         "posts" : posts,
+        "account" :  account
     }
     return render(request,"profile.html",params)
 
@@ -81,3 +98,14 @@ def delete(request):
 # アカウントカスタム画面
 def custom(request):
     return render(request,"custom.html")
+
+# プロフィール文の変更
+def editProfile(request):
+    if request.method == "POST":
+        # 変更した情報をDBへ
+        account = request.session["account"]
+        my_account = Account.objects.get(account_id = account.account_id)
+        profile = request.POST.get("profile")
+        my_account.profile = profile
+        my_account.save()
+        return redirect("/profile/")

@@ -45,6 +45,7 @@
             max-width:350px;
             font-size:12px;
             color: #445256;
+            cursor: pointer;
         }
         .post_text {
             width: 60%;
@@ -69,7 +70,8 @@
         <div class="contents">
             {% for post in posts%}
             <div class="post">
-                <div class="user_info">{{ post.account.name }}@{{ post.account.id}}
+                <div class="user_info" onclick="location.href='/profile/?account_id={{ post.account_id }}'">
+                    {{ post.account.name }}@{{ post.account.id}}
                 </div>
                 <div class="post_text">{{ post.content }}</div>
                 <div class="post_date">{{ post.created_at|date:"Y年n月j日 H時i分s秒" }}</div>
