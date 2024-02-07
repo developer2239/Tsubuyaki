@@ -16,15 +16,29 @@
             display: flex;
             justify-content: center;
             align-items: center;
+        } 
+        .errmsg {
+            color : red;
+            font-size:12px;
         }
         .panel {
             position: relative;
             background-color: white;
             margin-top: 150px;
             padding: 30px 10px 30px 20px;
-            width: 200px;
+            width: 70%;
+            max-width:400px;
             height: 250px;
             border-radius: 10px;
+        }
+        .name {
+            width :90%
+        }
+        .id {
+            width : 90%
+        }
+        .password {
+            width : 90%
         }
         .login_form {
             margin-top: 15px;
@@ -52,19 +66,24 @@
                     ユーザ名
                 </div>
                 <div class="name_input">
-                    <input id="name"  name="name" type="text">
+                    <input class="name" id="name"  name="name" type="text">
                 </div>
                 <div class="id_label">
                     ID
                 </div>
+                {% if request.GET.errmsg is not None %}
+                <div class="errmsg">
+                    {{ request.GET.errmsg }}
+                </div>
+                {% endif %}
                 <div class="id_input">
-                    <input id="id"  name="id" type="text">
+                    <input class="id" id="id"  name="id" type="text">
                 </div>
                 <div class="password_label">
                     PW
                 </div>
                 <div class="password_input">
-                    <input id="password"  name="password" type="text">
+                    <input class="password" id="password"  name="password" type="text">
                 </div>
                 <input class="login_button" type="submit" value="サインアップ">
                 <div class="create_account_link">
