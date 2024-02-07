@@ -43,15 +43,24 @@
 <body>
     <div class="wrapper">
         <div class="panel">
-            <div>
-                このアカウントを削除しますか？
-            </div>
-            <button onclick="location.href='/login/'">
-                はい
-            </button>
-            <button onclick="location.href='/profile/'">
-                いいえ
-            </button>
+            <ul>
+                <li>
+                    <div>
+                        ログアウトしますか？
+                    </div>
+                    <button onclick="location.href='/logout/'">
+                        はい
+                    </button>
+                </li>
+                <li>
+                    <div>
+                        このアカウントを削除しますか？
+                    </div>
+                    <button onclick="location.href='/login/'">
+                        はい
+                    </button>
+                </li>
+            </ul>
         </div>
     </div>
 </body>
