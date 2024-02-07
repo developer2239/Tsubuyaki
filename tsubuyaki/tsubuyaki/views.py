@@ -80,4 +80,4 @@ def delete(request):
 
 # アカウントカスタム画面
 def custom(request):
-    return render(request,"delete.html")
+    return render(request,"custom.html")
