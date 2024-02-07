@@ -91,7 +91,7 @@ def post(request):
         account = request.session["account"]
         account_id = account.account_id
         Post.objects.create(content = content, account_id = account_id)
-        return redirect("/posts/")
+        return redirect("/profile/")
     
 # つぶやき削除
 def delete(request):
