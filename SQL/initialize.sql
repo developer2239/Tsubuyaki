@@ -7,7 +7,7 @@ USE tsubuyaki_db;
 
 create table account (
   account_id INT NOT NULL AUTO_INCREMENT
-  , id VARCHAR(10) not null
+  , id VARCHAR(10) not null UNIQUE
   , name VARCHAR(10) not null
   , password VARCHAR(256) not null
   , profile VARCHAR(50)
