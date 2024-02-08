@@ -21,6 +21,14 @@
         .title {
             width: 60%;
         }
+        .follow_button {
+            padding: 5px;
+            border: 1px solid black;
+            border-radius: 15px;
+            color: white;
+            background-color: black;
+            cursor: pointer;
+        }
         .profile_button {
             padding: 5px;
             border: 1px solid white;
@@ -92,6 +100,9 @@
         .profile_since {
             font-size: 12px;
         }
+        .follow_number{
+            font-size: 12px;
+        }
         .post_date {
             font-size:12px;
             color: #445256;
@@ -145,6 +156,17 @@
                     つぶやきアプリ
                 </a>
             </div>
+            {% if not request.session.account.account_id == account.account_id %}
+                {% if is_follow %}
+                <div class="follow_button" onclick="location.href='/unfollow/?account_id={{ account.account_id }}'" >
+                    フォロー解除
+                </div>
+                {% else %}
+                <div class="follow_button" onclick="location.href='/follow/?account_id={{ account.account_id }}'" >
+                    フォローする
+                </div>
+                {% endif %}
+            {% endif %}
             <div class="profile_button" onclick="location.href='/custom/'" >
                 カスタム
             </div>
@@ -172,6 +194,9 @@
                 </div>
                 <div class="profile_since">
                     {{ account.created_at |date:"Y年n月j日"}}からサービスを利用しています
+                </div>
+                <div class="follow_number">
+                    {{ following }} フォロー {{ followed }} フォロワー
                 </div>
             </div>
             {% if request.session.account.account_id == account.account_id %}
