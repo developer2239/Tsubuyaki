@@ -35,10 +35,11 @@ create table follow (
 );
 
 create table favorite (
-  post_id INT NOT NULL 
+  favorite_id INT NOT NULL AUTO_INCREMENT
+  ,post_id INT NOT NULL 
   , account_id INT NOT NULL
   , created_at DATETIME default CURRENT_TIMESTAMP not null
-  , primary key (post_id)
+  , primary key (favorite_id)
   , FOREIGN KEY (post_id) REFERENCES post (post_id)
   , FOREIGN KEY (account_id) REFERENCES account (account_id)
 );
