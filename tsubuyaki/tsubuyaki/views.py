@@ -131,7 +131,7 @@ def follow(request):
     target_account_id = request.GET.get("account_id")
     account_id = request.session["account"].account_id
     Follow.objects.create(account_id = account_id,follow_account_id = target_account_id)
-    return redirect("/profile/")
+    return redirect("/profile/?account_id="+ target_account_id)
 
 # アンフォロー
 def unfollow(request):
@@ -139,4 +139,4 @@ def unfollow(request):
     account_id = request.session["account"].account_id
     # レコードの削除
     follow = Follow.objects.filter(account_id = account_id,follow_account_id = target_account_id).delete()
-    return redirect("/profile/")
+    return redirect("/profile/?account_id="+ target_account_id)
