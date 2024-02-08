@@ -1,0 +1,12 @@
+# 対応
+
+# ローカルリポジトリのmainブランチにリモートのmainを反映
+
+git checkout main
+git pull origin main
+
+# 現在の開発ブランチ(feature)にmainブランチをマージする
+# ※この際にコンフリクトが発生していれば、ここで解消する
+
+git checkout feature
+git merge main
