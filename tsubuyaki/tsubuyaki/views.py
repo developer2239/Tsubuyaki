@@ -3,6 +3,7 @@ from django.db import IntegrityError
 from django.shortcuts import render
 from django.shortcuts import redirect
 from tsubuyaki.models.account import Account
+from tsubuyaki.models.follow import Follow
 from tsubuyaki.models.post import Post
 
 # ログイン画面表示
@@ -76,11 +77,17 @@ def profile(request):
         account_id = showed_account.account_id
         account = showed_account
 
+    # フォロー情報をフェッチ
+    following = Follow.objects.filter(account_id = account_id).count()
+    followed = Follow.objects.filter(follow_account_id = account_id).count()
+
     # ユーザが投稿した呟きのみをフィルタリングする
     posts = Post.objects.filter(account_id = account_id).order_by("-created_at")
     params = {
         "posts" : posts,
-        "account" :  account
+        "account" :  account,
+        "following" : following,
+        "followed" : followed,
     }
     return render(request,"profile.html",params)
 
