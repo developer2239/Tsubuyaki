@@ -6,6 +6,7 @@ class Follow(models.Model):
 
     account_id = models.IntegerField(primary_key = True)
     follow_account = models.ForeignKey(Account,on_delete = models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add = True)
 
     class Meta:
         db_table = "follow"
