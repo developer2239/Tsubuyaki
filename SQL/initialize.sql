@@ -25,3 +25,11 @@ create table post (
   , primary key (post_id)
   , FOREIGN KEY (account_id) REFERENCES account (account_id)
 );
+
+
+create table follow (
+  account_id INT NOT NULL 
+  , follow_account_id INT NOT NULL
+  , primary key (account_id)
+  , FOREIGN KEY (follow_account_id) REFERENCES account (account_id)
+);
