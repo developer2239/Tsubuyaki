@@ -40,6 +40,10 @@ urlpatterns = [
     path('delete/',v.delete),
 
     # プロフィール変更
-    path('profile/edit/',v.editProfile)
-    
+    path('profile/edit/',v.editProfile),
+
+    # フォロー
+    path('follow/',v.follow),
+    # アンフォロー
+    path('unfollow/',v.unfollow),
 ]
