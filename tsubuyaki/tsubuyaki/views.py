@@ -80,6 +80,8 @@ def profile(request):
     # フォロー情報をフェッチ
     following = Follow.objects.filter(account_id = account_id).count()
     followed = Follow.objects.filter(follow_account_id = account_id).count()
+    # 既にフォローしているか否か
+    is_follow = True if Follow.objects.filter(account_id = updated.account_id,follow_account_id = account_id) else False
 
     # ユーザが投稿した呟きのみをフィルタリングする
     posts = Post.objects.filter(account_id = account_id).order_by("-created_at")
@@ -88,6 +90,7 @@ def profile(request):
         "account" :  account,
         "following" : following,
         "followed" : followed,
+        "is_follow" : is_follow,
     }
     return render(request,"profile.html",params)
 
@@ -122,3 +125,18 @@ def editProfile(request):
         my_account.profile = profile
         my_account.save()
         return redirect("/profile/")
+
+# フォロー
+def follow(request):
+    target_account_id = request.GET.get("account_id")
+    account_id = request.session["account"].account_id
+    Follow.objects.create(account_id = account_id,follow_account_id = target_account_id)
+    return redirect("/profile/")
+
+# アンフォロー
+def unfollow(request):
+    target_account_id = request.GET.get("account_id")
+    account_id = request.session["account"].account_id
+    # レコードの削除
+    follow = Follow.objects.filter(account_id = account_id,follow_account_id = target_account_id).delete()
+    return redirect("/profile/")
