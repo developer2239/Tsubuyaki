@@ -3,6 +3,7 @@ from django.db import IntegrityError
 from django.shortcuts import render
 from django.shortcuts import redirect
 from tsubuyaki.models.account import Account
+from tsubuyaki.models.favorite import Favorite
 from tsubuyaki.models.follow import Follow
 from tsubuyaki.models.post import Post
 
@@ -53,9 +54,9 @@ def signup(request):
 
 # つぶやき・ポスト一覧画面
 def posts(request):
-    posts = Post.objects.all().order_by("-created_at") 
+    posts = Post.objects.all().order_by("-created_at")
     params = {
-        "posts" : posts
+        "posts" : posts,
     }
     return render(request, "posts.html", params)
 
@@ -140,3 +141,17 @@ def unfollow(request):
     # レコードの削除
     follow = Follow.objects.filter(account_id = account_id,follow_account_id = target_account_id).delete()
     return redirect("/profile/?account_id="+ target_account_id)
+
+# いいね追加
+def add_favorite(request):
+    post_id = request.GET.get("post_id")
+    account_id = request.session["account"].account_id
+    Favorite.objects.create(post_id = post_id,account_id = account_id)
+    return redirect("/posts/")
+
+# いいね解除
+def remove_favorite(request):
+    post_id = request.GET.get("post_id")
+    account_id = request.session["account"].account_id
+    Favorite.objects.filter(post_id = post_id,account_id = account_id).delete()
+    return redirect("/posts/")
