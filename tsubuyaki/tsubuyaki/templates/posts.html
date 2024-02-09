@@ -22,13 +22,8 @@
         .title{
             width:50%;
         }
-        .name_plate{
-            min-width:140px;
-            color: black;
-            font-size: 12px;
-        }
         .profile_button {
-            min-width: 108px;
+            min-width: 140px;
             padding: 5px;
             border: 1px solid white;
             border-radius: 10px;
@@ -77,11 +72,8 @@
             <div class="title">
                 つぶやきアプリ
             </div>
-            <div class="name_plate">
-                {{ request.session.account.name }}@{{ request.session.account.id }}
-            </div>
             <div class="profile_button" onclick="location.href='/profile/'">
-                プロフィール
+                {{ request.session.account.name }}@{{ request.session.account.id }}
             </div>
         </div>
         <div class="contents">
