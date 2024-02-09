@@ -39,10 +39,12 @@
         .tsubuyaki_button {
             width: 70px;
             padding: 5px;
-            border: 1px solid white;
+            border: 1px solid rgb(99, 184, 99);
+            background-color: rgb(99, 184, 99);
             border-radius: 10px;
             color: white;
             margin: 15px auto;
+            text-align:center;
             cursor: pointer;
         }
         .contents {
@@ -66,9 +68,11 @@
             color: #445256;
         }
         .delete_post_button {
+            font-size: 18px;
             position: absolute;
             top: 0;
             right: 0;
+            cursor: pointer
         }
         .profile_panel{
             width: 70%;
@@ -120,15 +124,16 @@
             height: 350px;
             position: fixed;
             inset: 0;
-            background-color: rgb(196, 194, 194);
+            background-color: rgb(188, 204, 211);
             margin: auto;
             border-radius: 15px;
-            border: 1px solid rgb(196, 194, 194);
+            border: 1px solid rgb(188, 204, 211);
         }
         .close_tsubuyaki_window_button {
             position: absolute;
             top: 0;
             right: 0;
+            cursor: pointer
         }
         .my_info {
             text-align: center;
@@ -171,7 +176,7 @@
                 {% endif %}
             {% endif %}
             <div class="profile_button" onclick="location.href='/custom/'" >
-                カスタム
+                設定
             </div>
         </div>
         <div class="contents">
@@ -214,8 +219,7 @@
                         {{ post.account.name }}@{{ post.account.id}}
                     </div>
                     {% if request.session.account.account_id == account.account_id %}
-                    <div id="delete_post_button" class="delete_post_button">
-                        <a href="/delete?post_id={{ post.post_id }}">×</a>
+                    <div id="delete_post_button" class="delete_post_button" onclick="location.href='/delete?post_id={{ post.post_id }}'">×
                     </div>
                     {% endif %}
                 </div>
@@ -285,7 +289,7 @@
             let isdeleted = window.confirm('このポストを削除しますか？')
             if (isdeleted){
                 window.alert("つぶやきを削除しました")
-            } 
+            }
         });
 
         // プロフィール変更のポップアップウィンドウ
