@@ -109,6 +109,9 @@
         .follow_number{
             font-size: 12px;
         }
+        .post_text {
+            overflow-wrap: break-word;
+        }
         .post_date {
             font-size:12px;
             color: #445256;
@@ -251,7 +254,7 @@
         <form action="/post/" method="POST">
             {% csrf_token %}
             <div class="tsubuyaki_text">
-                <textarea class="tsubuyaki_text_input" id="content" name="content"></textarea>
+                <textarea class="tsubuyaki_text_input" id="content" name="content" maxlength="50"></textarea>
             </div>
             <div class="tsubuyaki_submit">
                 <input class="tsubuyaki_submit_input" type="submit" value="つぶやく">
@@ -269,7 +272,7 @@
         <form action="/profile/edit/" method="POST">
             {% csrf_token %}
             <div class="tsubuyaki_text">
-                <textarea class="tsubuyaki_text_input" id="profile" name="profile"></textarea>
+                <textarea class="tsubuyaki_text_input" id="profile" name="profile" maxlength="50"></textarea>
             </div>
             <div class="tsubuyaki_submit">
                 <input class="tsubuyaki_submit_input" type="submit" value="自己紹介文を変更">
