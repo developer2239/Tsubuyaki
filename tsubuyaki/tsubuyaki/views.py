@@ -1,11 +1,14 @@
 from hashlib import sha256
-from django.db import IntegrityError
+import json
+from django.db import Error, IntegrityError
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.shortcuts import redirect
 from tsubuyaki.models.account import Account
 from tsubuyaki.models.favorite import Favorite
 from tsubuyaki.models.follow import Follow
 from tsubuyaki.models.post import Post
+
 
 # ログイン画面表示
 def login(request):
@@ -106,11 +109,19 @@ def post(request):
     
 # つぶやき削除
 def delete(request):
-    post_id = request.GET.get("post_id")
+    json_data = json.loads(str(request.body, encoding='utf-8'))
     # レコードの削除
-    post = Post.objects.get(post_id = post_id)
-    post.delete()
-    return redirect("/profile/")
+    try:
+        post = Post.objects.get(post_id = json_data.get("post_id"))
+        post.delete()
+        is_deleted = True
+    except Error:
+        is_deleted = False
+        
+    params = {
+        'is_deleted' : is_deleted,
+    }
+    return JsonResponse(params)
 
 # アカウントカスタム画面
 def custom(request):

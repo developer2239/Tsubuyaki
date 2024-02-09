@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>自分のつぶやき</title>
+    <!-- JavaScript Cookie library -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <style>
         body {
             height: 100%;
@@ -174,10 +176,11 @@
                     フォローする
                 </div>
                 {% endif %}
+            {% else %}
+                <div class="profile_button" onclick="location.href='/custom/'" >
+                    設定
+                </div>
             {% endif %}
-            <div class="profile_button" onclick="location.href='/custom/'" >
-                設定
-            </div>
         </div>
         <div class="contents">
             <div class="profile_panel">
@@ -219,7 +222,7 @@
                         {{ post.account.name }}@{{ post.account.id}}
                     </div>
                     {% if request.session.account.account_id == account.account_id %}
-                    <div id="delete_post_button" class="delete_post_button" onclick="location.href='/delete?post_id={{ post.post_id }}'">×
+                    <div id="delete_post_button" class="delete_post_button" onclick="deletePost('{{ post.post_id }}')">×
                     </div>
                     {% endif %}
                 </div>
@@ -284,13 +287,36 @@
         });
 
         // ポスト削除ポップアップウィンドウ
-        const deletePostButton = document.getElementById('delete_post_button');
-        deletePostButton.addEventListener('click',function(){
-            let isdeleted = window.confirm('このポストを削除しますか？')
-            if (isdeleted){
-                window.alert("つぶやきを削除しました")
+        async function deletePost(postId){
+            isDeleted = false
+            if(confirm("このつぶやきを削除しますか？")){
+                const csrftoken = Cookies.get('csrftoken');
+                const postBody = {
+                    post_id : postId,
+                };
+                const postData = {
+                    method: "POST",
+                    headers : {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": csrftoken,
+                    },
+                    body: JSON.stringify(postBody)
+                };
+                const res = await fetch("/delete/", postData)
+                    .then(function (data) {
+                        return data.json(); // 読み込むデータをJSONに設定
+                    })
+                    .then(function (json) {
+                        isDeleted = json["is_deleted"];
+                    });
+                if(isDeleted){
+                    alert("つぶやきを削除しました");
+                } else {
+                    alert("エラーが発生しました。既に削除されている可能性があります。")
+                }
+                window.location.href ='/profile/';
             }
-        });
+        }
 
         // プロフィール変更のポップアップウィンドウ
         const profileEditButton = document.getElementById('profile_edit_button');
