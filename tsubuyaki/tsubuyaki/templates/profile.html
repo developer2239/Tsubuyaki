@@ -68,9 +68,11 @@
             color: #445256;
         }
         .delete_post_button {
+            font-size: 18px;
             position: absolute;
             top: 0;
             right: 0;
+            cursor: pointer
         }
         .profile_panel{
             width: 70%;
@@ -131,6 +133,7 @@
             position: absolute;
             top: 0;
             right: 0;
+            cursor: pointer
         }
         .my_info {
             text-align: center;
@@ -216,8 +219,7 @@
                         {{ post.account.name }}@{{ post.account.id}}
                     </div>
                     {% if request.session.account.account_id == account.account_id %}
-                    <div id="delete_post_button" class="delete_post_button">
-                        <a href="/delete?post_id={{ post.post_id }}">×</a>
+                    <div id="delete_post_button" class="delete_post_button" onclick="location.href='/delete?post_id={{ post.post_id }}'">×
                     </div>
                     {% endif %}
                 </div>
@@ -287,7 +289,7 @@
             let isdeleted = window.confirm('このポストを削除しますか？')
             if (isdeleted){
                 window.alert("つぶやきを削除しました")
-            } 
+            }
         });
 
         // プロフィール変更のポップアップウィンドウ
