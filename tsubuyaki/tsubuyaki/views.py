@@ -155,13 +155,20 @@ def unfollow(request):
 
 # いいね追加・削除
 def favorite(request):
-    post_id = request.GET.get("post_id")
     account_id = request.session["account"].account_id
-
-    # いいねが登録されてばレコードを削除、なければ登録
-    favorite = Favorite.objects.filter(post_id = post_id, account_id = account_id).count()
-    if favorite > 0:
-        Favorite.objects.filter(post_id = post_id, account_id = account_id).delete()
-    else:
-        Favorite.objects.create(post_id = post_id,account_id = account_id)
-    return redirect("/posts/")
+    json_data = json.loads(str(request.body, encoding='utf-8'))
+    post_id = json_data.get("post_id")
+    try:
+        # いいねが登録されてばレコードを削除、なければ登録
+        favorite = Favorite.objects.filter(post_id = post_id, account_id = account_id).count()
+        if favorite > 0:
+            Favorite.objects.filter(post_id = post_id, account_id = account_id).delete()
+        else:
+            Favorite.objects.create(post_id = post_id,account_id = account_id)
+        isErrorHappened = False
+    except Error:
+        isErrorHappened = True
+    params = {
+        'is_error_happened' : isErrorHappened,
+    }
+    return JsonResponse(params)
