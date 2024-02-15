@@ -204,7 +204,7 @@
                 <div class="profile_id">
                     @{{ account.id }}
                 </div>
-                <div class="profile_profile">
+                <div id="profile_profile" class="profile_profile">
                     {{ account.profile }}
                 </div>
                 <div class="profile_since">
@@ -330,6 +330,9 @@
         const profileEditWindow = document.getElementById('edit_profile_window');
         const closeEditProfileWindowButton = document.getElementById('close_edit_profile_window_button')
         profileEditButton.addEventListener('click', function() {
+            const profileText = document.getElementById('profile_profile').textContent;
+            const profile = document.getElementById('profile');
+            profile.textContent = profileText.trim()
             profileEditWindow.style.display = 'flex';
         });
         closeEditProfileWindowButton.addEventListener('click', function() {
