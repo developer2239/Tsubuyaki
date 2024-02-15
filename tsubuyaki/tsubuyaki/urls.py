@@ -48,8 +48,6 @@ urlpatterns = [
     path('unfollow/',v.unfollow),
 
     # いいね追加
-    path('add_favorite/',v.add_favorite),
-    # いいね解除
-    path('remove_favorite/',v.remove_favorite),
+    path('favorite/',v.favorite),
 
 ]
