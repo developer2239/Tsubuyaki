@@ -23,7 +23,7 @@ create table post (
   , created_at DATETIME default CURRENT_TIMESTAMP not null
   , updated_at DATETIME default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP not null
   , primary key (post_id)
-  , FOREIGN KEY (account_id) REFERENCES account (account_id)
+  , FOREIGN KEY (account_id) REFERENCES account (account_id) ON DELETE CASCADE
 );
 
 create table follow (
@@ -31,7 +31,8 @@ create table follow (
   , follow_account_id INT NOT NULL
   , created_at DATETIME default CURRENT_TIMESTAMP not null
   , primary key (account_id)
-  , FOREIGN KEY (follow_account_id) REFERENCES account (account_id)
+  , FOREIGN KEY (account_id) REFERENCES account (account_id) ON DELETE CASCADE
+  , FOREIGN KEY (follow_account_id) REFERENCES account (account_id) ON DELETE CASCADE
 );
 
 create table favorite (
@@ -40,6 +41,6 @@ create table favorite (
   , account_id INT NOT NULL
   , created_at DATETIME default CURRENT_TIMESTAMP not null
   , primary key (favorite_id)
-  , FOREIGN KEY (post_id) REFERENCES post (post_id)
-  , FOREIGN KEY (account_id) REFERENCES account (account_id)
+  , FOREIGN KEY (post_id) REFERENCES post (post_id) ON DELETE CASCADE
+  , FOREIGN KEY (account_id) REFERENCES account (account_id) ON DELETE CASCADE
 );

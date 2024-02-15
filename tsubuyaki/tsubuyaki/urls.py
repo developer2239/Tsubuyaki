@@ -50,4 +50,7 @@ urlpatterns = [
     # いいね追加
     path('favorite/',v.favorite),
 
+    # アカウント削除
+    path('dump_account/',v.dump_account)
+
 ]
