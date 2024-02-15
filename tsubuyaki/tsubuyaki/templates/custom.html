@@ -25,6 +25,7 @@
             width: 300px;
             height: 200px;
             border-radius: 10px;
+            border: 2px solid #1da1f2;
         }
         .login_form {
             margin-top: 15px;
@@ -43,25 +44,26 @@
 <body>
     <div class="wrapper">
         <div class="panel">
-            <ul>
-                <li>
-                    <div>
-                        ログアウトしますか？
-                    </div>
-                    <button onclick="location.href='/logout/'">
-                        はい
-                    </button>
-                </li>
-                <li>
-                    <div>
-                        このアカウントを削除しますか？
-                    </div>
-                    <button onclick="location.href='/login/'">
-                        はい
-                    </button>
-                </li>
-            </ul>
+            <div>
+                ログアウトする
+            </div>
+            <button onclick="location.href='/logout/'">
+                はい
+            </button>
+            <div>
+                このアカウントを削除する
+            </div>
+            <button onclick="dump_account()">
+                はい
+            </button>
         </div>
     </div>
+<script>
+function dump_account(){
+    if(window.confirm("本当にこのアカウントを削除しますか？")){
+        location.href = "/dump_account/"
+    }
+};
+</script>
 </body>
 </html>

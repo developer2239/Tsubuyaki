@@ -172,3 +172,10 @@ def favorite(request):
         'is_error_happened' : isErrorHappened,
     }
     return JsonResponse(params)
+
+# アカウントの削除
+def dump_account(request):
+    account_id = request.session["account"].account_id
+    res = Account.objects.filter(account_id = account_id).delete()
+    print(res)
+    return redirect("/login/")
