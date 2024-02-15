@@ -1,74 +1,11 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>最新つぶやき一覧</title>
-    <!-- JavaScript Cookie library -->
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-    <style>
-        body {
-            height: 100%;
-            max-width: 100%;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to right,#FFF, #b1b6ec);
-        }
-        .header {
-            margin-top: 25px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-        }
-        .title{
-            width:50%;
-        }
-        .profile_button {
-            min-width: 140px;
-            padding: 5px;
-            border: 1px solid #1da1f2;
-            border-radius: 30px;
-            background-color: #1da1f2;
-            color: white;
-            cursor : pointer;
-            text-align:center;
-        }
-        .contents {
-            margin-top: 30px;
-            margin-bottom:60px;
-        }
-        .post {
-            width: 70%;
-            max-width: 400px;
-            margin: 0 auto;
-            margin-top: 10px;
-            padding: 10px;
-            background-color: white;
-            border: 2px solid #1da1f2;
-            border-radius: 15px;
-        }
-        .user_info {
-            width: 60%;
-            max-width:350px;
-            font-size:12px;
-            color: #445256;
-            cursor: pointer;
-        }
-        .post_text {
-            overflow-wrap: break-word;
-        }
-        .post_date {
-            font-size:12px;
-            color: #445256;
-        }
-        .favorite_button {
-            font-size: 12px;
-        }
-        .favorite_button_icon {
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/posts.css' %}">
 </head>
 <body>
     <div class="wrapper">
@@ -99,25 +36,8 @@
             {% endfor %}
         </div>
     </div>
-<script>
-    // お気に入り追加・削除
-    async function favorite(postId){
-    isDeleted = false
-    const csrftoken = Cookies.get('csrftoken');
-    const postBody = {
-        post_id : postId,
-    };
-    const postData = {
-        method: "POST",
-        headers : {
-            "Content-Type": "application/json",
-            "X-CSRFToken": csrftoken,
-        },
-        body: JSON.stringify(postBody)
-    };
-    const res = await fetch("/favorite/", postData);
-    window.location.reload();
-    }
-</script>
+    <!-- JavaScript Cookie library -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script src="{% static 'js/posts.js' %}" async></script>
 </body>
 </html>
