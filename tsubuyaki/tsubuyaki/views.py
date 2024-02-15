@@ -153,16 +153,15 @@ def unfollow(request):
     follow = Follow.objects.filter(account_id = account_id,follow_account_id = target_account_id).delete()
     return redirect("/profile/?account_id="+ target_account_id)
 
-# いいね追加
-def add_favorite(request):
+# いいね追加・削除
+def favorite(request):
     post_id = request.GET.get("post_id")
     account_id = request.session["account"].account_id
-    Favorite.objects.create(post_id = post_id,account_id = account_id)
-    return redirect("/posts/")
 
-# いいね解除
-def remove_favorite(request):
-    post_id = request.GET.get("post_id")
-    account_id = request.session["account"].account_id
-    Favorite.objects.filter(post_id = post_id,account_id = account_id).delete()
+    # いいねが登録されてばレコードを削除、なければ登録
+    favorite = Favorite.objects.filter(post_id = post_id, account_id = account_id).count()
+    if favorite > 0:
+        Favorite.objects.filter(post_id = post_id, account_id = account_id).delete()
+    else:
+        Favorite.objects.create(post_id = post_id,account_id = account_id)
     return redirect("/posts/")
