@@ -13,7 +13,7 @@ create table account (
   , profile VARCHAR(50)
   , created_at DATETIME default CURRENT_TIMESTAMP not null
   , updated_at DATETIME default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP not null
-  , primary key (account_id,id)
+  , primary key (account_id)
 );
 
 create table post (
@@ -43,4 +43,11 @@ create table favorite (
   , primary key (favorite_id)
   , FOREIGN KEY (post_id) REFERENCES post (post_id) ON DELETE CASCADE
   , FOREIGN KEY (account_id) REFERENCES account (account_id) ON DELETE CASCADE
+);
+
+create table post_favorites (
+  id INT not null UNIQUE
+  , post_id INT 
+  , favorite_id INT
+  , primary key (id)
 );

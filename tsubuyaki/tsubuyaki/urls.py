@@ -51,6 +51,9 @@ urlpatterns = [
     path('favorite/',v.favorite),
 
     # アカウント削除
-    path('dump_account/',v.dump_account)
+    path('dump_account/',v.dump_account),
+
+    # つぶやき取得
+    path('fetch_posts/',v.fetch_posts)
 
 ]

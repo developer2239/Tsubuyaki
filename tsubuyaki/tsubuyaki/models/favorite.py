@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import model_to_dict
 from tsubuyaki.models.account import Account
 from tsubuyaki.models.post import Post
 
@@ -12,3 +13,6 @@ class Favorite(models.Model):
 
     class Meta:
         db_table = "favorite"
+
+    def to_dict(self):
+        return model_to_dict(self)

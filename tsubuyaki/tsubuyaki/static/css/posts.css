@@ -55,7 +55,5 @@ body {
 }
 .favorite_button {
     font-size: 12px;
-}
-.favorite_button_icon {
     cursor: pointer;
 }
