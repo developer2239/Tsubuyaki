@@ -67,17 +67,19 @@ def posts(request):
 def fetch_posts(request):
     json_data = json.loads(str(request.body, encoding='utf-8'))
     post_id = json_data.get("post_id")
+    print('post_id',post_id)
     post_list = []
     try:
         if post_id is None:
             posts = Post.objects.all().select_related("account").order_by("-created_at")[:20]
         else:
             posts = Post.objects.filter(post_id__lt = post_id).select_related("account").order_by("-created_at")[:20]
-        
+        is_last = False if posts.count() == 20 else True
         isErrorHappened = False
     except Error:
         isErrorHappened = True
     params = {
+        'is_last' : is_last,
         'is_error_happened' : isErrorHappened,
         'posts' : json.dumps(posts, cls=ExtendedJsonEncoder, ensure_ascii=False),
     }

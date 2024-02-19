@@ -27,7 +27,6 @@ body {
 }
 .contents {
     margin-top: 30px;
-    margin-bottom:60px;
 }
 .post {
     width: 70%;
@@ -56,4 +55,17 @@ body {
 .favorite_button {
     font-size: 12px;
     cursor: pointer;
+}
+
+.lead_more_button {
+  display: block;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  border: 1px solid #1da1f2;
+  border-radius: 30px;
+  background-color: #1da1f2;
+  color: white;
+  cursor : pointer;
+  text-align:center;
 }

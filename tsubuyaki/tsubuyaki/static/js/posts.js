@@ -32,9 +32,10 @@ async function favorite(postId){
 /**
  * 引数で指定されたpostIdをオフセットとして、そこから古い順に20件取得する
  * @param {*} postId 呟き情報ID
- * @returns 呟き情報20件
+ * @returns 読み込んだ最後のpostId
  */
-async function fetchPosts(postId){
+function fetchPosts(postId){
+    console.log(postId)
     const csrftoken = Cookies.get('csrftoken');
     const postBody = {
         post_id : postId,
@@ -47,17 +48,28 @@ async function fetchPosts(postId){
         },
         body: JSON.stringify(postBody)
     };
-    await fetch("/fetch_posts/", postData)
+    return fetch("/fetch_posts/", postData)
         .then(function (data) {
             return data.json(); // 読み込むデータをJSONに設定
         })
         .then(function (json) {
+            // 読み込みボタン
+            let leadMoreButton = document.getElementById("lead_more_button");
+            let last_postId = postId;
             for(const post of JSON.parse(json["posts"])){
                 createPostPanel(post);
+                last_postId = post["post_id"];
+            }
+            
+            if (json["is_last"]){
+                leadMoreButton.remove();
+            } else {
+                leadMoreButton.addEventListener('click', function() {
+                    fetchPosts(last_postId);
+                });
             }
         });
 }
-
 
 /**
  * 呟きのエレメントを作成し、コンテントに追加
@@ -112,4 +124,6 @@ function createPostPanel(post){
 }
 
 
-fetchPosts();
+
+// 初期ロード20件
+let lastId = fetchPosts();
