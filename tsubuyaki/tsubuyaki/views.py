@@ -1,13 +1,13 @@
 from hashlib import sha256
 import json
 from django.db import Error, IntegrityError
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.shortcuts import redirect
 from tsubuyaki.models.account import Account
 from tsubuyaki.models.favorite import Favorite
 from tsubuyaki.models.follow import Follow
-from tsubuyaki.models.post import Post
+from tsubuyaki.models.post import ExtendedJsonEncoder, Post
 
 
 # ログイン画面表示
@@ -62,6 +62,29 @@ def posts(request):
         "posts" : posts,
     }
     return render(request, "posts.html", params)
+
+# つぶやき情報を返す
+def fetch_posts(request):
+    json_data = json.loads(str(request.body, encoding='utf-8'))
+    post_id = json_data.get("post_id")
+    print('post_id',post_id)
+    post_list = []
+    try:
+        if post_id is None:
+            posts = Post.objects.all().select_related("account").order_by("-created_at")[:20]
+        else:
+            posts = Post.objects.filter(post_id__lt = post_id).select_related("account").order_by("-created_at")[:20]
+        is_last = False if posts.count() == 20 else True
+        isErrorHappened = False
+    except Error:
+        isErrorHappened = True
+    params = {
+        'is_last' : is_last,
+        'is_error_happened' : isErrorHappened,
+        'posts' : json.dumps(posts, cls=ExtendedJsonEncoder, ensure_ascii=False),
+    }
+    return JsonResponse(params)
+    
 
 # プロフィール画面
 def profile(request):
@@ -162,11 +185,14 @@ def favorite(request):
         # いいねが登録されてばレコードを削除、なければ登録
         favorite = Favorite.objects.filter(post_id = post_id, account_id = account_id).count()
         if favorite > 0:
-            Favorite.objects.filter(post_id = post_id, account_id = account_id).delete()
+            # ここでエラー
+            print(favorite)
+            target = Favorite.objects.filter(post_id = post_id, account_id = account_id).delete()
         else:
             Favorite.objects.create(post_id = post_id,account_id = account_id)
         isErrorHappened = False
-    except Error:
+    except Error as e:
+        print(e)
         isErrorHappened = True
     params = {
         'is_error_happened' : isErrorHappened,
