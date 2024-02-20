@@ -71,10 +71,10 @@ def fetch_posts(request):
     post_list = []
     try:
         if post_id is None:
-            posts = Post.objects.all().select_related("account").order_by("-created_at")[:20]
+            posts = Post.objects.all().select_related("account").order_by("-created_at")[:10]
         else:
-            posts = Post.objects.filter(post_id__lt = post_id).select_related("account").order_by("-created_at")[:20]
-        is_last = False if posts.count() == 20 else True
+            posts = Post.objects.filter(post_id__lt = post_id).select_related("account").order_by("-created_at")[:10]
+        is_last = False if posts.count() == 10 else True
         isErrorHappened = False
     except Error:
         isErrorHappened = True
