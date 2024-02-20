@@ -57,11 +57,14 @@ def signup(request):
 
 # つぶやき・ポスト一覧画面
 def posts(request):
-    posts = Post.objects.all().order_by("-created_at")
-    params = {
-        "posts" : posts,
-    }
-    return render(request, "posts.html", params)
+    if request.method == "GET":
+        try:
+            if not request.session["account"] is None:
+                return render(request,"posts.html")
+        except KeyError:
+            return redirect("/login/")
+    else:
+        return redirect("/login/")
 
 # つぶやき情報を返す
 def fetch_posts(request):
