@@ -108,7 +108,7 @@ def profile(request):
     following = Follow.objects.filter(account_id = account_id).count()
     followed = Follow.objects.filter(follow_account_id = account_id).count()
     # 既にフォローしているか否か
-    is_follow = True if Follow.objects.filter(account_id = updated.account_id,follow_account_id = account_id) else False
+    is_follow = True if Follow.objects.filter(account_id = updated.account_id,follow_account_id = account_id).count() > 0 else False
 
     # ユーザが投稿した呟きのみをフィルタリングする
     posts = Post.objects.filter(account_id = account_id).order_by("-created_at")
