@@ -190,12 +190,14 @@ def favorite(request):
             target = Favorite.objects.filter(post_id = post_id, account_id = account_id).delete()
         else:
             Favorite.objects.create(post_id = post_id,account_id = account_id)
+        favorite_count = Favorite.objects.filter(post_id = post_id).count()
         isErrorHappened = False
     except Error as e:
         print(e)
         isErrorHappened = True
     params = {
         'is_error_happened' : isErrorHappened,
+        'favorite_count' : favorite_count,
     }
     return JsonResponse(params)
 
