@@ -27,10 +27,11 @@ create table post (
 );
 
 create table follow (
-  account_id INT NOT NULL
+  follow_id INT NOT NULL AUTO_INCREMENT
+  ,account_id INT NOT NULL
   , follow_account_id INT NOT NULL
   , created_at DATETIME default CURRENT_TIMESTAMP not null
-  , primary key (account_id)
+  , primary key (follow_id)
   , FOREIGN KEY (account_id) REFERENCES account (account_id) ON DELETE CASCADE
   , FOREIGN KEY (follow_account_id) REFERENCES account (account_id) ON DELETE CASCADE
 );
