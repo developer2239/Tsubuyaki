@@ -1,0 +1,27 @@
+# 下記のようなhtmlの場合
+# sample.html
+<html>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+<body>
+    <div class="container">
+        <header></header>
+        <main></main>
+        <footer></footer>
+    </div>
+</body>
+</html>
+
+# css
+.container {
+    display: flex;
+    flex-direction: column;
+}
+main {
+    flex : 1;
+    overflow-y: scroll;
+}
+
+# 実はflexというのはflex-grow・flex-shrink・flex-basisをまとめて指定するショートハンドで、
+# flex: 1;はflex-grow: 1;、flex-shrink: 1;、flex-basis: 0;という意味です。
+# 今回はflex-growの値がヘッダー=0、メインコンテンツ=1、フッター=0なので、余った領域を0:1:0の割合で割り振るという意味になります。つまり、余った領域を全てメインコンテンツにしますということです。
+

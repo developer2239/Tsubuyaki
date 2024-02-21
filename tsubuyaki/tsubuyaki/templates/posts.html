@@ -9,20 +9,22 @@
 </head>
 <body>
     <div class="wrapper">
-        <div class="header">
+        <header class="header">
             <div class="title">
                 つぶやきアプリ
             </div>
             <div class="profile_button" onclick="location.href='/profile/'">
                 {{ request.session.account.name }}@{{ request.session.account.id }}
             </div>
-        </div>
-        <div id="contents" class="contents"></div>
-        <div>
-            <button id="lead_more_button" class="lead_more_button">
-                さらに読み込む
-            </button>
-        </div>
+        </header>
+        <main>
+            <div id="contents" class="contents"></div>
+            <div>
+                <button id="lead_more_button" class="lead_more_button">
+                    さらに読み込む
+                </button>
+            </div>
+        </main>
     </div>
     <!-- JavaScript Cookie library -->
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
