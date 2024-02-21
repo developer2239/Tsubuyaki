@@ -6,7 +6,8 @@ body {
     background: linear-gradient(to right,#FFF, #b1b6ec);
 }
 .header {
-    margin-top: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
