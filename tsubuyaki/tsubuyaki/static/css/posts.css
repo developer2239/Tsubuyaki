@@ -5,8 +5,15 @@ body {
     padding: 0;
     background: linear-gradient(to right,#FFF, #b1b6ec);
 }
-.header {
-    margin-top: 25px;
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+}
+header {
+    margin-top: 10px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,8 +32,9 @@ body {
     cursor : pointer;
     text-align:center;
 }
-.contents {
-    margin-top: 30px;
+main {
+    flex: 1;
+    overflow-y: scroll;
 }
 .post {
     width: 70%;
