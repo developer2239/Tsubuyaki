@@ -39,7 +39,6 @@ async function favorite(postId){
  * @returns 読み込んだ最後のpostId
  */
 function fetchPosts(postId){
-    console.log(postId)
     const csrftoken = Cookies.get('csrftoken');
     const postBody = {
         post_id : postId,
