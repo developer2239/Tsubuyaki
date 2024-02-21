@@ -23,7 +23,7 @@ class Post(models.Model):
         return {
             'post_id': self.post_id,
             'post_content' : self.content,
-            'created_at' : self.created_at.strftime("%y年%m月%d日 %H:%M"),
+            'created_at' : self.created_at.strftime("%Y年%m月%d日 %H:%M"),
             'name': self.account.name,
             'id': self.account.id,
             'account_id': self.account.account_id,
