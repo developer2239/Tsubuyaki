@@ -52,7 +52,8 @@ def signup(request):
             errmsg = str(id) + "は既に使用されています。他のIDを選択してください。"
             return redirect("/signup/?errmsg=" + errmsg)
             
-        return redirect("/login/")
+        msg = "登録が完了しました。"
+        return redirect("/login/?msg=" + msg)
 
 
 # つぶやき・ポスト一覧画面

@@ -70,5 +70,13 @@
             </form>
         </div>
     </div>
+    <script>
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const msg = urlParams.get('msg')
+        if(msg != null){
+            window.alert(msg)
+        }
+    </script>
 </body>
 </html>
