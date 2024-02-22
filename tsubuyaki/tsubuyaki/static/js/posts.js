@@ -38,7 +38,7 @@ async function favorite(postId){
  * @param {*} postId 呟き情報ID
  * @returns 読み込んだ最後のpostId
  */
-function fetchPosts(postId){
+async function fetchPosts(postId){
     const csrftoken = Cookies.get('csrftoken');
     const postBody = {
         post_id : postId,
@@ -51,25 +51,31 @@ function fetchPosts(postId){
         },
         body: JSON.stringify(postBody)
     };
-    return fetch("/fetch_posts/", postData)
+    return await fetch("/fetch_posts/", postData)
         .then(function (data) {
             return data.json(); // 読み込むデータをJSONに設定
         })
         .then(function (json) {
-            // 読み込みボタン
-            let leadMoreButton = document.getElementById("lead_more_button");
             let last_postId = postId;
-            for(const post of JSON.parse(json["posts"])){
+            const posts = JSON.parse(json["posts"]);
+            for(const post of posts){
                 createPostPanel(post);
                 last_postId = post["post_id"];
             }
-            
-            if (json["is_last"]){
-                leadMoreButton.remove();
-            } else {
-                leadMoreButton.addEventListener('click', function() {
+            if(postId != null){
+                const oldleadMoreButton = document.getElementById("lead_more_button");
+                oldleadMoreButton.remove();
+            }
+            if (!json["is_last"]) {
+                let newLeadMoreButton = document.createElement("button");
+                newLeadMoreButton.setAttribute("id","lead_more_button");
+                newLeadMoreButton.className = "lead_more_button";
+                newLeadMoreButton.addEventListener("click",function(){
                     fetchPosts(last_postId);
                 });
+                newLeadMoreButton.appendChild(document.createTextNode("さらに読み込む"))
+                let leadMore = document.getElementById("lead_more");
+                leadMore.appendChild(newLeadMoreButton);
             }
         });
 }
@@ -132,4 +138,4 @@ function createPostPanel(post){
 
 
 // 初期ロード20件
-let lastId = fetchPosts();
+fetchPosts();
