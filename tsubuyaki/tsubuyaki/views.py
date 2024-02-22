@@ -71,14 +71,17 @@ def posts(request):
 def fetch_posts(request):
     json_data = json.loads(str(request.body, encoding='utf-8'))
     post_id = json_data.get("post_id")
-    print('post_id',post_id)
-    post_list = []
+    is_last = False
+    posts = None
     try:
         if post_id is None:
-            posts = Post.objects.all().select_related("account").order_by("-created_at")[:10]
+            posts = Post.objects.all().select_related("account").order_by("-created_at")
         else:
-            posts = Post.objects.filter(post_id__lt = post_id).select_related("account").order_by("-created_at")[:10]
-        is_last = False if posts.count() == 10 else True
+            posts = Post.objects.filter(post_id__lt = post_id).order_by("-created_at")
+        if  posts.count() <= 10:
+            is_last = True
+        else:
+            posts = posts[:10]
         isErrorHappened = False
     except Error:
         isErrorHappened = True
